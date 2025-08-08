@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const items = [
   { role: "Senior Full-Stack Developer", company: "CineTech Labs", period: "2022 – Present", details: "Leading a team building cinematic, high-performance web experiences for enterprise clients." },
@@ -8,7 +10,64 @@ const items = [
 
 const Experience = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const toggle = (i: number) => setOpenIndex((v) => (v === i ? null : i));
+  const [isMuted, setIsMuted] = useState(false);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+
+  useEffect(() => {
+    const Ctx = (window as any).AudioContext || (window as any).webkitAudioContext;
+    if (Ctx) {
+      audioCtxRef.current = new Ctx();
+    }
+    return () => {
+      audioCtxRef.current?.close();
+      audioCtxRef.current = null;
+    };
+  }, []);
+
+  const playWhoosh = () => {
+    if (isMuted) return;
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+
+    const duration = 0.35;
+    const sampleRate = ctx.sampleRate;
+    const buffer = ctx.createBuffer(1, Math.floor(sampleRate * duration), sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < data.length; i++) {
+      const t = i / data.length;
+      const envelope = Math.pow(1 - t, 2);
+      data[i] = (Math.random() * 2 - 1) * envelope;
+    }
+
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(1800, ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(250, ctx.currentTime + duration);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.5, ctx.currentTime + 0.05);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+
+    source.start();
+    source.stop(ctx.currentTime + duration + 0.01);
+  };
+
+  const toggle = (i: number) => {
+    setOpenIndex((prev) => {
+      const willOpen = prev !== i;
+      if (willOpen) playWhoosh();
+      return willOpen ? i : null;
+    });
+  };
 
   return (
     <section id="experience" className="min-h-screen snap-start container py-20 md:py-28">
@@ -35,7 +94,16 @@ const Experience = () => {
           </div>
         ))}
       </div>
-      <div className="mt-6 text-xs text-muted-foreground">Sound effects optional · <span className="opacity-70">mute</span></div>
+      <div className="mt-6 flex items-center gap-3">
+        <Label htmlFor="sound-toggle" className="text-sm text-muted-foreground">Sound effects</Label>
+        <Switch
+          id="sound-toggle"
+          checked={!isMuted}
+          onCheckedChange={(checked) => setIsMuted(!checked)}
+          aria-label="Toggle sound effects"
+        />
+        <span className="text-xs text-muted-foreground">{isMuted ? "Muted" : "On"}</span>
+      </div>
     </section>
   );
 };
