@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import portrait from "@/assets/portrait.jpg";
 
 const skills = [
   { name: "React", level: 90 },
@@ -11,7 +12,7 @@ const skills = [
   { name: "MongoDB", level: 78 },
 ]; 
 
-const reelSkills = skills.map((s) => s.name);
+// removed rotating skill badges
 const subtitle = "Full-Stack Developer crafting cinematic web experiences.";
 
 const About = () => {
@@ -131,30 +132,9 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="relative"
         >
-          <div className="relative mx-auto w-64 h-64 md:w-80 md:h-80 rounded-full">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-background to-muted shadow-xl ring-1 ring-primary/30" />
-            <div className="absolute inset-3 rounded-full border-2 border-dashed border-border" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-full h-full">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_18s_linear_infinite]">
-                  {reelSkills.map((label, idx) => {
-                    const angle = (idx / reelSkills.length) * 360;
-                    const radius = 110;
-                    return (
-                      <div
-                        key={label}
-                        className="absolute top-1/2 left-1/2"
-                        style={{ transform: `rotate(${angle}deg) translateY(-${radius}px) rotate(-${angle}deg)` }}
-                      >
-                        <Badge variant="secondary" className="text-xs px-2 py-1 shadow">
-                          {label}
-                        </Badge>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+          <div className="relative mx-auto w-56 h-56 md:w-72 md:h-72 rounded-full ring-2 ring-primary/40 shadow-xl overflow-hidden">
+            <img src={portrait} alt="Portrait of Your Name" loading="lazy" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 ring-1 ring-inset ring-border/40" aria-hidden />
           </div>
         </motion.div>
       </div>
