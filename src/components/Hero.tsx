@@ -47,7 +47,7 @@ const Hero = () => {
         poster={heroBg}
         aria-hidden
       >
-        <source src="/videos/hero-loop.mp4" type="video/mp4" />
+        <source src="/videos/hero-loop2.mp4" type="video/mp4" />
       </video>
       <div
         className="absolute inset-0 mix-blend-overlay opacity-30"
@@ -68,7 +68,7 @@ const Hero = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className={`font-display text-6xl md:text-8xl tracking-tight leading-none text-foreground drop-shadow-xl ${glitch ? "glitch-once" : ""}`}
           >
-            YOUR NAME
+            ABHINOV DUTTA
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 24 }}

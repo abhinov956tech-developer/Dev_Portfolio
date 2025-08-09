@@ -12,9 +12,6 @@ const skills = [
   { name: "MongoDB", level: 78 },
 ]; 
 
-// removed rotating skill badges
-const subtitle = "Full-Stack Developer crafting cinematic web experiences.";
-
 const About = () => {
   const leftRef = useRef<HTMLDivElement | null>(null);
   const skillsRef = useRef<HTMLDivElement | null>(null);
@@ -41,20 +38,7 @@ const About = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (inViewLeft && !typedStartedRef.current) {
-      typedStartedRef.current = true;
-      let i = 0;
-      const timer = setInterval(() => {
-        i++;
-        setTyped(subtitle.slice(0, i));
-        if (i >= subtitle.length) {
-          clearInterval(timer);
-        }
-      }, 30);
-      return () => clearInterval(timer);
-    }
-  }, [inViewLeft]);
+  
 
   const playWhoosh = () => {
     const ac = audioCtxRef.current;
@@ -106,10 +90,7 @@ const About = () => {
           transition={{ duration: 0.6 }}
         >
           <h2 className="font-display text-4xl md:text-5xl mb-4">About</h2>
-          <p className={`text-muted-foreground mb-2 transition-opacity duration-500 ${typed.length === subtitle.length ? "opacity-100" : "opacity-90"}`}>
-            {typed}
-            <span aria-hidden="true" className="ml-0.5">{typed.length < subtitle.length ? "|" : ""}</span>
-          </p>
+          
           <p className="text-muted-foreground mb-6">
             I’m a full-stack developer focused on building high-performance, accessible web apps with a strong eye for cinematic design and motion.
           </p>
@@ -133,7 +114,7 @@ const About = () => {
           className="relative"
         >
           <div className="relative mx-auto w-56 h-56 md:w-72 md:h-72 rounded-full ring-2 ring-primary/40 shadow-xl overflow-hidden">
-            <img src={portrait} alt="Portrait of Your Name" loading="lazy" className="w-full h-full object-cover" />
+            <img src="/public/me.png" alt="Portrait of Your Name" loading="lazy" className="w-full h-full object-cover" />
             <div className="absolute inset-0 ring-1 ring-inset ring-border/40" aria-hidden />
           </div>
         </motion.div>
