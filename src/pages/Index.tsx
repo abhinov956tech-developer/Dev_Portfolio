@@ -49,7 +49,10 @@ const Index = () => {
       {showCut && <div className="fade-cut fixed inset-0 z-[70]" aria-hidden />}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-background/70 border-b border-border">
         <div className="container flex items-center justify-between py-3">
-          <a href="#hero" className="font-display text-2xl tracking-wide story-link" aria-label="Go to top">ZS Portfolio</a>
+          <a href="#hero" className="font-display text-2xl tracking-wide story-link flex flex-row items-center" aria-label="Go to top" style={{ display: 'flex', alignItems: 'center', gap: '1px', }}>
+            <img className="h-8 my-auto" src='/sign.png' alt="Logo" style={{ display: 'inline', verticalAlign: 'middle' }} />
+            <span style={{ display: 'inline', verticalAlign: 'middle' }}>Portfolio</span>
+          </a>
           <nav className="flex items-center gap-6 text-sm">
             <a href="#about" className={linkClass("about")} aria-current={active === "about" ? "page" : undefined}>About</a>
             <a href="#tech" className={linkClass("tech")} aria-current={active === "tech" ? "page" : undefined}>Stack</a>
@@ -77,7 +80,7 @@ const Index = () => {
         <Contact />
       </main>
       <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} Your Name · All Rights Reserved
+        © {new Date().getFullYear()} Abhinov Dutta · All Rights Reserved
       </footer>
     </div>
   );

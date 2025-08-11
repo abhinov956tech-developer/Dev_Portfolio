@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import portrait from "@/assets/portrait.jpg";
 
 const skills = [
   { name: "React", level: 90 },
@@ -112,10 +111,16 @@ const About = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
           className="relative"
+          style={{ opacity: 1, transform: "none", left: "66px", top: "-1px", width: "574.222px" }}
         >
-          <div className="relative mx-auto w-56 h-56 md:w-72 md:h-72 rounded-full ring-2 ring-primary/40 shadow-xl overflow-hidden">
-            <img src="/public/me.png" alt="Portrait of Your Name" loading="lazy" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 ring-1 ring-inset ring-border/40" aria-hidden />
+          <div className="relative mx-auto w-64 h-96 md:w-80 md:h-[32rem] lg:w-96 lg:h-[36rem] rounded-sm ring-1 ring-border/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden">
+            <img 
+              src="/me.png" 
+              alt="Portrait of Your Name" 
+              loading="lazy" 
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out" 
+            />
+            <div className="absolute inset-0 ring-1 ring-inset ring-border/10" aria-hidden />
           </div>
         </motion.div>
       </div>
