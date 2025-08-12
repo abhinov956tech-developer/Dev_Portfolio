@@ -77,83 +77,53 @@ const About = () => {
   }, [inViewSkills]);
 
   return (
-    <section id="about" className="relative min-h-screen snap-start container py-12 sm:py-16 md:py-20 lg:py-28">
-      {/* Top-left Orange Geometric Accent */}
-      <motion.div
-        initial={{ opacity: 0, rotate: 0 }}
-        whileInView={{ opacity: 0.6, rotate: 45 }}
-        viewport={{ once: true }}
-        transition={{ duration: 2, delay: 0.5 }}
-        className="absolute top-16 sm:top-24 left-4 sm:left-8 w-4 sm:w-6 h-4 sm:h-6 bg-gradient-to-br from-orange-400 to-orange-500 rotate-45 shadow-lg z-10"
-        style={{
-          boxShadow: '0 0 20px rgba(251, 146, 60, 0.3)'
-        }}
-      />
-
-      {/* Bottom-right Orange Geometric Accent */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 0.6, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, delay: 0.8 }}
-        className="absolute bottom-24 right-8 w-8 h-8 z-10"
-      >
-        <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-500 transform rotate-12 shadow-lg"
-          style={{
-            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-            boxShadow: '0 0 25px rgba(251, 146, 60, 0.4)'
-          }}
-        />
-      </motion.div>
-
-      <div className="grid md:grid-cols-2 gap-10 items-center">
+    <section id="about" className="min-h-screen snap-start container py-12 sm:py-16 md:py-20 lg:py-28 px-4 sm:px-6 md:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 xl:gap-16 items-center">
+        {/* Left Content */}
         <motion.div
           ref={leftRef}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="relative"
+          className="order-2 lg:order-1"
         >
-          {/* Soft Ambient Glow behind text */}
-          <div className="absolute -inset-8 bg-gradient-radial from-slate-100/10 via-slate-100/5 to-transparent rounded-3xl blur-2xl dark:from-slate-800/20 dark:via-slate-800/10" />
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl mb-4 sm:mb-6">About</h2>
           
-          <div className="relative z-10">
-            <h2 className="font-display text-4xl md:text-5xl mb-4">About</h2>
-            
-            <p className="text-muted-foreground mb-6">
-              I'm a full-stack developer focused on building high-performance, accessible web apps with a strong eye for cinematic design and motion.
-            </p>
-            <div ref={skillsRef} className="space-y-4">
-              {skills.map((s) => (
-                <div key={s.name}>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm tracking-wide uppercase text-muted-foreground">{s.name}</span>
-                    <Badge variant="secondary">{s.level}%</Badge>
-                  </div>
-                  <Progress value={progressValues[s.name]} className="h-2" />
+          <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base leading-relaxed">
+            I'm a full-stack developer focused on building high-performance, accessible web apps with a strong eye for cinematic design and motion.
+          </p>
+          
+          {/* Skills Section */}
+          <div ref={skillsRef} className="space-y-4 sm:space-y-6">
+            {skills.map((s) => (
+              <div key={s.name} className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs sm:text-sm tracking-wide uppercase text-muted-foreground font-medium">
+                    {s.name}
+                  </span>
+                  <Badge variant="secondary" className="text-xs px-2 py-1">
+                    {s.level}%
+                  </Badge>
                 </div>
-              ))}
-            </div>
+                <Progress 
+                  value={progressValues[s.name]} 
+                  className="h-1.5 sm:h-2 w-full" 
+                />
+              </div>
+            ))}
           </div>
         </motion.div>
-        
+
+        {/* Right Image */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="relative"
-          style={{ opacity: 1, transform: "none", left: "66px", top: "-1px", width: "574.222px" }}
+          className="relative order-1 lg:order-2 flex justify-center lg:justify-end"
         >
-          {/* Enhanced shadow for portrait frame */}
-          <div 
-            className="relative mx-auto w-64 h-96 md:w-80 md:h-[32rem] lg:w-96 lg:h-[36rem] rounded-sm ring-1 ring-border/20 overflow-hidden"
-            style={{
-              filter: 'drop-shadow(0 15px 35px rgba(0, 0, 0, 0.2))',
-              boxShadow: '0 8px 30px rgb(0,0,0,0.12)'
-            }}
-          >
+          <div className="relative w-48 h-64 sm:w-56 sm:h-80 md:w-64 md:h-96 lg:w-72 lg:h-[28rem] xl:w-80 xl:h-[32rem] 2xl:w-96 2xl:h-[36rem] rounded-sm ring-1 ring-border/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden mx-auto lg:mx-0">
             <img 
               src="/me.png" 
               alt="Portrait of Your Name" 
